@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+    .container {
+      max-width: 640px;
+      width: 100%;
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+      color: #f8fafc;
+    }
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #cbd5e1;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #f1f5f9;
+      font-size: 1rem;
+      margin-bottom: 28px;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    .question {
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #334155;
+    }
+    .question:last-of-type { border-bottom: none; }
+    .question h3 {
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+      color: #f1f5f9;
+    }
+    .options label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-bottom: 6px;
+    }
+    .options label:hover {
+      background: #334155;
+    }
+    input[type="radio"] {
+      accent-color: #3b82f6;
+      width: 18px;
+      height: 18px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+    button:hover { background: #2563eb; }
+    button:disabled {
+      background: #475569;
+      cursor: not-allowed;
+    }
+    #result {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      font-size: 1.1rem;
+    }
+    #result.success {
+      background: #064e3b;
+      color: #6ee7b7;
+      display: block;
+    }
+    #result.error {
+      background: #7f1d1d;
+      color: #fca5a5;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz</h1>
+    <p class="subtitle">Odpowiedz na pytania i wyślij wynik</p>
+
+    <form id="quizForm">
+      <label for="name">Twoje imię</label>
+      <input type="text" id="name" name="name" required placeholder="Wpisz imię...">
+
+      <!-- ========== PYTANIA ========== -->
+      <!-- Możesz dodawać/usuwać pytania. 
+           data-correct="a" oznacza, że poprawna odpowiedź to wartość "a" -->
+
+      <div class="question" data-correct="b">
+        <h3>1. Jaka jest stolica Polski?</h3>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a" required> Kraków</label>
+          <label><input type="radio" name="q1" value="b"> Warszawa</label>
+          <label><input type="radio" name="q1" value="c"> Gdańsk</label>
+          <label><input type="radio" name="q1" value="d"> Wrocław</label>
+        </div>
+      </div>
+
+      <div class="question" data-correct="a">
+        <h3>2. Ile wynosi 2 + 2?</h3>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a" required> 4</label>
+          <label><input type="radio" name="q2" value="b"> 5</label>
+          <label><input type="radio" name="q2" value="c"> 22</label>
+          <label><input type="radio" name="q2" value="d"> 3</label>
+        </div>
+      </div>
+
+      <div class="question" data-correct="c">
+        <h3>3. Która planeta jest najbliżej Słońca?</h3>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a" required> Wenus</label>
+          <label><input type="radio" name="q3" value="b"> Mars</label>
+          <label><input type="radio" name="q3" value="c"> Merkury</label>
+          <label><input type="radio" name="q3" value="d"> Ziemia</label>
+        </div>
+      </div>
+
+      <!-- ========== KONIEC PYTAŃ ========== -->
+
+      <button type="submit" id="submitBtn">Wyślij wynik</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // ========== KONFIGURACJA TELEGRAM ==========
+    const TELEGRAM_BOT_TOKEN = "WSTAW_TUTAJ_TOKEN_BOTA";
+    const TELEGRAM_CHAT_ID   = "WSTAW_TUTAJ_CHAT_ID";
+    // ==========================================
+
+    const form = document.getElementById("quizForm");
+    const resultDiv = document.getElementById("result");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      if (!name) return;
+
+      const questions = document.querySelectorAll(".question");
+      let correct = 0;
+      const total = questions.length;
+
+      questions.forEach((q, index) => {
+        const selected = form.querySelector(`input[name="q${index + 1}"]:checked`);
+        if (selected && selected.value === q.dataset.correct) {
+          correct++;
+        }
+      });
+
+      const percent = Math.round((correct / total) * 100);
+      const message = `📊 Wynik quizu\n\n👤 Imię: ${name}\n✅ Poprawne: ${correct}/${total}\n📈 Wynik: ${percent}%`;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Wysyłanie...";
+
+      try {
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: message,
+            parse_mode: "HTML"
+          })
+        });
+
+        if (!res.ok) throw new Error("Błąd Telegram API");
+
+        resultDiv.className = "success";
+        resultDiv.textContent = `Wysłano! Twój wynik: ${percent}% (${correct}/${total})`;
+        resultDiv.style.display = "block";
+      } catch (err) {
+        console.error(err);
+        resultDiv.className = "error";
+        resultDiv.textContent = "Nie udało się wysłać na Telegram. Sprawdź token i Chat ID.";
+        resultDiv.style.display = "block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Wyślij wynik";
+      }
+    });
+  </script>
+</body>
+</html>
