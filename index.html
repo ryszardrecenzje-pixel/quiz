@@ -313,15 +313,20 @@
       // Losujemy 10 pytań z większej bazy
       const selected = shuffle(questionsBank).slice(0, 10);
 
-      currentQuestions = selected.map(q => {
-        const indices = shuffle([0, 1, 2, 3]);
-        const shuffledOptions = indices.map(i => q.options[i]);
-        const newCorrect = indices.indexOf(q.correct);
-        return {
-          question: q.question,
-          options: shuffledOptions,
-          correct: newCorrect
-        };
+      currentQuestions.forEach((q, index) => {
+        const selected = form.querySelector(`input[name="q${index}"]:checked`);
+        const selectedValue = selected ? parseInt(selected.value) : -1;
+      
+        if (selectedValue === q.correct) {
+          correctCount++;
+        } else {
+          wrongAnswers.push({
+            number: index + 1,
+            question: q.question,
+            selectedAnswer: selectedValue >= 0 ? q.options[selectedValue] : "brak",
+            correctAnswer: q.options[q.correct]
+          });
+        }
       });
 
       container.innerHTML = "";
@@ -391,7 +396,7 @@ form.addEventListener("submit", async (e) => {
 
   // Tworzymy tekst z błędnymi pytaniami do arkusza
   const wrongText = wrongAnswers.length > 0
-    ? wrongAnswers.map(w => `${w.number}. ${w.question} → Poprawna: ${w.correctAnswer}`).join(" | ")
+    ? wrongAnswers.map(w => `${w.number}. ${w.question} → Zaznaczono: „${w.selectedAnswer}” | Poprawna: „${w.correctAnswer}”`).join(" | ")
     : "Brak błędów";
 
   submitBtn.disabled = true;
