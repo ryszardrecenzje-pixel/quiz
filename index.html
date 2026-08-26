@@ -130,9 +130,6 @@
       <input type="text" id="name" name="name" required placeholder="Wpisz imię...">
 
       <!-- ========== PYTANIA ========== -->
-      <!-- Możesz dodawać/usuwać pytania. 
-           data-correct="a" oznacza, że poprawna odpowiedź to wartość "a" -->
-
       <div class="question" data-correct="b">
         <h3>1. Jaka jest stolica Polski?</h3>
         <div class="options">
@@ -162,7 +159,6 @@
           <label><input type="radio" name="q3" value="d"> Ziemia</label>
         </div>
       </div>
-
       <!-- ========== KONIEC PYTAŃ ========== -->
 
       <button type="submit" id="submitBtn">Wyślij wynik</button>
@@ -172,10 +168,11 @@
   </div>
 
   <script>
-    // ========== KONFIGURACJA TELEGRAM ==========
-    const TELEGRAM_BOT_TOKEN = "WSTAW_TUTAJ_TOKEN_BOTA";
-    const TELEGRAM_CHAT_ID   = "WSTAW_TUTAJ_CHAT_ID";
-    // ==========================================
+    // ========== KONFIGURACJA ==========
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqQXNBRTwN95XiEt5t9he96XV2tlZjkIduuLAPxV0n5SB_5Fye6nkpf8p4bAFLQ_Siaw/exec";   // ← wklej URL z Apps Script
+    const TELEGRAM_BOT_TOKEN = "WSTAW_TUTAJ_TOKEN_BOTA";   // opcjonalnie
+    const TELEGRAM_CHAT_ID   = "WSTAW_TUTAJ_CHAT_ID";      // opcjonalnie
+    // ==================================
 
     const form = document.getElementById("quizForm");
     const resultDiv = document.getElementById("result");
@@ -199,32 +196,45 @@
       });
 
       const percent = Math.round((correct / total) * 100);
-      const message = `📊 Wynik quizu\n\n👤 Imię: ${name}\n✅ Poprawne: ${correct}/${total}\n📈 Wynik: ${percent}%`;
 
       submitBtn.disabled = true;
       submitBtn.textContent = "Wysyłanie...";
 
       try {
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        const res = await fetch(url, {
+        // 1. Zapis do Google Sheets
+        await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
+          mode: "no-cors",          // ważne!
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: message,
-            parse_mode: "HTML"
+            name: name,
+            percent: percent,
+            correct: correct,
+            total: total
           })
         });
 
-        if (!res.ok) throw new Error("Błąd Telegram API");
+        // 2. Opcjonalnie Telegram (jeśli masz wypełnione dane)
+        if (TELEGRAM_BOT_TOKEN !== "WSTAW_TUTAJ_TOKEN_BOTA" && TELEGRAM_CHAT_ID !== "WSTAW_TUTAJ_CHAT_ID") {
+          const message = `📊 Wynik quizu\n\n👤 Imię: ${name}\n✅ Poprawne: ${correct}/${total}\n📈 Wynik: ${percent}%`;
+          await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: TELEGRAM_CHAT_ID,
+              text: message
+            })
+          });
+        }
 
         resultDiv.className = "success";
         resultDiv.textContent = `Wysłano! Twój wynik: ${percent}% (${correct}/${total})`;
         resultDiv.style.display = "block";
+
       } catch (err) {
         console.error(err);
         resultDiv.className = "error";
-        resultDiv.textContent = "Nie udało się wysłać na Telegram. Sprawdź token i Chat ID.";
+        resultDiv.textContent = "Wystąpił błąd podczas wysyłania.";
         resultDiv.style.display = "block";
       } finally {
         submitBtn.disabled = false;
