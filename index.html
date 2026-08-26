@@ -173,8 +173,51 @@
     // ========== KONFIGURACJA ==========
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqQXNBRTwN95XiEt5t9he96XV2tlZjkIduuLAPxV0n5SB_5Fye6nkpf8p4bAFLQ_Siaw/exec";
     // ==================================
+
     const questionsBank = [
-      // === Logika i myślenie ===
+      // === Klasyczne zagadki Bilba i Golluma ===
+      {
+        question: "Co ma korzenie, których nikt nie widzi, jest wyższe od drzew, rośnie w górę, a jednak nigdy nie rośnie?",
+        options: ["Góra", "Chmura", "Dąb", "Wieża"],
+        correct: 0
+      },
+      {
+        question: "Trzydzieści białych koni na czerwonym wzgórzu. Najpierw żują, potem tupią, a potem stoją nieruchomo. Co to jest?",
+        options: ["Zęby", "Palce", "Owce", "Chmury"],
+        correct: 0
+      },
+      {
+        question: "Bez głosu krzyczy, bez skrzydeł fruwa, bez zębów gryzie, bez ust mamrocze. Co to?",
+        options: ["Wiatr", "Echo", "Cień", "Ogień"],
+        correct: 0
+      },
+      {
+        question: "Pudełko bez zawiasów, bez klucza i bez pokrywy, a jednak złoty skarb w środku się chowa. Co to?",
+        options: ["Jajko", "Orzech", "Skrzynia", "Dynia"],
+        correct: 0
+      },
+      {
+        question: "Żyje bez oddechu, zimne jak śmierć, nigdy nie pragnie, a zawsze pije, całe w zbroi, a nigdy nie brzęczy. Co to?",
+        options: ["Ryba", "Wąż", "Żółw", "Krab"],
+        correct: 0
+      },
+      {
+        question: "Tego nie widać, nie da się poczuć, nie słychać i nie da się powąchać. Leży za gwiazdami i pod górami, wypełnia puste dziury. Przychodzi pierwsze i idzie za wszystkim, kończy życie, zabija śmiech. Co to?",
+        options: ["Ciemność", "Cień", "Śmierć", "Cisza"],
+        correct: 0
+      },
+      {
+        question: "To pożera wszystko: ptaki, zwierzęta, drzewa, kwiaty. Gryzie żelazo, gryzie stal, mieli twarde kamienie na mąkę. Zabija królów, niszczy miasta i ściera wysokie góry. Co to?",
+        options: ["Czas", "Ogień", "Woda", "Rdza"],
+        correct: 0
+      },
+      {
+        question: "Co Bilbo zapytał Golluma na samym końcu (choć to nie była prawdziwa zagadka)?",
+        options: ["Co mam w kieszeni?", "Jak się nazywasz?", "Gdzie jest wyjście?", "Co jesz na śniadanie?"],
+        correct: 0
+      },
+    
+      // === Inne dobre zagadki i logika ===
       {
         question: "Ile zwierząt zabrał Mojżesz na arkę?",
         options: ["2 każdego gatunku", "7 par czystych", "Zero – to był Noe", "Wszystkie"],
@@ -187,7 +230,7 @@
       },
       {
         question: "Jeśli w wyścigu wyprzedzasz osobę na 2. miejscu, na którym miejscu jesteś?",
-        options: ["Na 1.", "Na 2.", "Na 3.", "Zależy od liczby zawodników"],
+        options: ["Na 1.", "Na 2.", "Na 3.", "Zależy"],
         correct: 1
       },
       {
@@ -201,7 +244,7 @@
         correct: 2
       },
       {
-        question: "Jeśli masz tylko jedną zapałkę i wchodzisz do ciemnego pokoju z lampą naftową, świecą i piecem – co zapalasz najpierw?",
+        question: "Jeśli masz tylko jedną zapałkę i wchodzisz do ciemnego pokoju z lampą, świecą i piecem – co zapalasz najpierw?",
         options: ["Świecę", "Lampę", "Piec", "Zapałkę"],
         correct: 3
       },
@@ -215,8 +258,6 @@
         options: ["Szkło", "Obietnicę", "Lód", "Serce"],
         correct: 1
       },
-    
-      // === Matematyka podchwytliwa ===
       {
         question: "Ile to jest połowa z 2 + 2?",
         options: ["2", "3", "4", "1"],
@@ -247,8 +288,6 @@
         options: ["28", "24", "22", "26"],
         correct: 0
       },
-    
-      // === Język i spostrzegawczość ===
       {
         question: "Które słowo jest napisane niepoprawnie w słowniku?",
         options: ["Niepoprawnie", "Słownik", "Wszystkie są poprawne", "Niepoprawne"],
@@ -256,11 +295,11 @@
       },
       {
         question: "Co stoi pośrodku Warszawy?",
-        options: ["Pałac Kultury", "Litera „s”", "Syrenka", "Zamek Królewski"],
+        options: ["Pałac Kultury", "Litera „s”", "Syrenka", "Zamek"],
         correct: 1
       },
       {
-        question: "Które słowo nie pasuje do pozostałych: okno, drzwi, ściana, sufit, podłoga, dach?",
+        question: "Które słowo nie pasuje: okno, drzwi, ściana, sufit, podłoga, dach?",
         options: ["Okno", "Drzwi", "Dach", "Sufit"],
         correct: 2
       },
@@ -268,61 +307,8 @@
         question: "Ile liter ma słowo „alfabet”?",
         options: ["7", "8", "9", "6"],
         correct: 0
-      },
-    
-      // === Hobbit / Władca Pierścieni (poziom podstawowy) ===
-      {
-        question: "Jak nazywa się dom Bilba Bagginsa?",
-        options: ["Bag End", "Rivendell", "Mordor", "Shire"],
-        correct: 0
-      },
-      {
-        question: "Kto znalazł Pierścień w jaskini Golluma?",
-        options: ["Gandalf", "Frodo", "Bilbo", "Aragorn"],
-        correct: 2
-      },
-      {
-        question: "Jak nazywa się smok, który spał na skarbie w Samotnej Górze?",
-        options: ["Smaug", "Drogon", "Norbert", "Fafnir"],
-        correct: 0
-      },
-      {
-        question: "Który z hobbita miał największe stopy?",
-        options: ["Frodo", "Sam", "Pippin", "Wszyscy hobbici mają duże stopy"],
-        correct: 3
-      },
-      {
-        question: "Jak nazywa się mag, który pomagał Bilbowi i krasnoludom?",
-        options: ["Saruman", "Gandalf", "Radagast", "Albus"],
-        correct: 1
-      },
-      {
-        question: "Co Gollum nazywał „swoim skarbem”?",
-        options: ["Miecz", "Pierścień", "Złoto", "Jaskinię"],
-        correct: 1
-      },
-      {
-        question: "W jakiej krainie mieszkają hobbici?",
-        options: ["Mordor", "Shire (Włość)", "Gondor", "Rohan"],
-        correct: 1
-      },
-      {
-        question: "Kto napisał książkę „Hobbit, czyli tam i z powrotem”?",
-        options: ["J.K. Rowling", "J.R.R. Tolkien", "C.S. Lewis", "George R.R. Martin"],
-        correct: 1
-      },
-      {
-        question: "Jak nazywa się miecz Bilba?",
-        options: ["Andúril", "Sting (Żądło)", "Glamdring", "Narsil"],
-        correct: 1
-      },
-      {
-        question: "Ile było krasnoludów w drużynie Thorina?",
-        options: ["7", "12", "13", "9"],
-        correct: 2
       }
     ];
-
     function shuffle(array) {
       const arr = [...array];
       for (let i = arr.length - 1; i > 0; i--) {
