@@ -432,6 +432,7 @@ form.addEventListener("submit", async (e) => {
         ${wrongAnswers.map(w => `
           <div class="wrong-item">
             <div class="q"><strong>${w.number}.</strong> ${w.question}</div>
+            <div style="color:#fca5a5; margin-top:3px;">Zaznaczono: ${w.selectedAnswer}</div>
             <div class="correct">Poprawna odpowiedź: ${w.correctAnswer}</div>
           </div>
         `).join("")}
