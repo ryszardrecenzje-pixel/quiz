@@ -313,20 +313,15 @@
       // Losujemy 10 pytań z większej bazy
       const selected = shuffle(questionsBank).slice(0, 10);
 
-      currentQuestions.forEach((q, index) => {
-        const selected = form.querySelector(`input[name="q${index}"]:checked`);
-        const selectedValue = selected ? parseInt(selected.value) : -1;
-      
-        if (selectedValue === q.correct) {
-          correctCount++;
-        } else {
-          wrongAnswers.push({
-            number: index + 1,
-            question: q.question,
-            selectedAnswer: selectedValue >= 0 ? q.options[selectedValue] : "brak",
-            correctAnswer: q.options[q.correct]
-          });
-        }
+      currentQuestions = selected.map(q => {
+        const indices = shuffle([0, 1, 2, 3]);
+        const shuffledOptions = indices.map(i => q.options[i]);
+        const newCorrect = indices.indexOf(q.correct);
+        return {
+          question: q.question,
+          options: shuffledOptions,
+          correct: newCorrect
+        };
       });
 
       container.innerHTML = "";
@@ -366,94 +361,93 @@
     const resultDiv = document.getElementById("result");
     const submitBtn = document.getElementById("submitBtn");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
-  if (!name) return;
+      const name = document.getElementById("name").value.trim();
+      if (!name) return;
 
-  let correctCount = 0;
-  const total = currentQuestions.length;
-  const wrongAnswers = [];
+      let correctCount = 0;
+      const total = currentQuestions.length;
+      const wrongAnswers = [];
 
-  currentQuestions.forEach((q, index) => {
-    const selected = form.querySelector(`input[name="q${index}"]:checked`);
-    const selectedValue = selected ? parseInt(selected.value) : -1;
+      currentQuestions.forEach((q, index) => {
+        const selected = form.querySelector(`input[name="q${index}"]:checked`);
+        const selectedValue = selected ? parseInt(selected.value) : -1;
 
-    if (selectedValue === q.correct) {
-      correctCount++;
-    } else {
-      wrongAnswers.push({
-        number: index + 1,
-        question: q.question,
-        correctAnswer: q.options[q.correct]
+        if (selectedValue === q.correct) {
+          correctCount++;
+        } else {
+          wrongAnswers.push({
+            number: index + 1,
+            question: q.question,
+            selectedAnswer: selectedValue >= 0 ? q.options[selectedValue] : "brak",
+            correctAnswer: q.options[q.correct]
+          });
+        }
       });
-    }
-  });
 
-  const percent = Math.round((correctCount / total) * 100);
-  const iq = estimateIQ(percent);
+      const percent = Math.round((correctCount / total) * 100);
+      const iq = estimateIQ(percent);
 
-  // Tworzymy tekst z błędnymi pytaniami do arkusza
-  const wrongText = wrongAnswers.length > 0
-    ? wrongAnswers.map(w => `${w.number}. ${w.question} → Zaznaczono: „${w.selectedAnswer}” | Poprawna: „${w.correctAnswer}”`).join(" | ")
-    : "Brak błędów";
+      const wrongText = wrongAnswers.length > 0
+        ? wrongAnswers.map(w => `${w.number}. ${w.question} → Zaznaczono: „${w.selectedAnswer}” | Poprawna: „${w.correctAnswer}”`).join(" | ")
+        : "Brak błędów";
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Wysyłanie...";
-  form.querySelectorAll("input").forEach(el => el.disabled = true);
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Wysyłanie...";
+      form.querySelectorAll("input").forEach(el => el.disabled = true);
 
-  try {
-    await fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-      body: JSON.stringify({
-        name: name,
-        percent: percent,
-        correct: correctCount,
-        total: total,
-        iq: iq,
-        wrong: wrongText
-      })
-    });
-  } catch (err) {
-    console.error("Błąd wysyłki:", err);
-  }
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            name: name,
+            percent: percent,
+            correct: correctCount,
+            total: total,
+            iq: iq,
+            wrong: wrongText
+          })
+        });
+      } catch (err) {
+        console.error("Błąd wysyłki:", err);
+      }
 
-  // Pokazujemy wynik na stronie
-  let wrongHtml = "";
-  if (wrongAnswers.length > 0) {
-    wrongHtml = `
-      <div class="wrong-list">
-        <h4>Błędne odpowiedzi (${wrongAnswers.length}):</h4>
-        ${wrongAnswers.map(w => `
-          <div class="wrong-item">
-            <div class="q"><strong>${w.number}.</strong> ${w.question}</div>
-            <div style="color:#fca5a5; margin-top:3px;">Zaznaczono: ${w.selectedAnswer}</div>
-            <div class="correct">Poprawna odpowiedź: ${w.correctAnswer}</div>
+      let wrongHtml = "";
+      if (wrongAnswers.length > 0) {
+        wrongHtml = `
+          <div class="wrong-list">
+            <h4>Błędne odpowiedzi (${wrongAnswers.length}):</h4>
+            ${wrongAnswers.map(w => `
+              <div class="wrong-item">
+                <div class="q"><strong>${w.number}.</strong> ${w.question}</div>
+                <div style="color:#fca5a5; margin-top:3px;">Zaznaczono: ${w.selectedAnswer}</div>
+                <div class="correct">Poprawna odpowiedź: ${w.correctAnswer}</div>
+              </div>
+            `).join("")}
           </div>
-        `).join("")}
-      </div>
-    `;
-  } else {
-    wrongHtml = `<div class="wrong-list" style="color:#6ee7b7;">Gratulacje! Wszystkie odpowiedzi poprawne.</div>`;
-  }
+        `;
+      } else {
+        wrongHtml = `<div class="wrong-list" style="color:#6ee7b7;">Gratulacje! Wszystkie odpowiedzi poprawne.</div>`;
+      }
 
-  resultDiv.className = "success";
-  resultDiv.innerHTML = `
-    <div>Wynik: <strong>${percent}%</strong> (${correctCount}/${total})</div>
-    <div class="iq-value">Szacowane IQ: ~${iq}</div>
-    <div style="font-size:0.88rem; opacity:0.85;">
-      (Wynik orientacyjny – to nie jest profesjonalny test IQ)
-    </div>
-    ${wrongHtml}
-  `;
-  resultDiv.style.display = "block";
-  submitBtn.textContent = "Test zakończony";
-});
+      resultDiv.className = "success";
+      resultDiv.innerHTML = `
+        <div>Wynik: <strong>${percent}%</strong> (${correctCount}/${total})</div>
+        <div class="iq-value">Szacowane IQ: ~${iq}</div>
+        <div style="font-size:0.88rem; opacity:0.85;">
+          (Wynik orientacyjny – to nie jest profesjonalny test IQ)
+        </div>
+        ${wrongHtml}
+      `;
+      resultDiv.style.display = "block";
+      submitBtn.textContent = "Test zakończony";
+    });
   </script>
 </body>
 </html>
