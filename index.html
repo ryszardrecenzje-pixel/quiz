@@ -400,14 +400,16 @@
           headers: {
             "Content-Type": "text/plain;charset=utf-8"
           },
-          body: JSON.stringify({
-            name: name,
-            percent: percent,
-            correct: correctCount,
-            total: total,
-            iq: iq
-          })
-        });
+        body: JSON.stringify({
+          name: name,
+          percent: percent,
+          correct: correctCount,
+          total: total,
+          iq: iq,
+          wrong: wrongAnswers.length > 0 
+            ? wrongAnswers.map(w => `${w.number}. ${w.question} → Poprawna: ${w.correctAnswer}`).join(" | ")
+            : "Brak błędów"
+        })
       } catch (err) {
         console.error("Błąd wysyłki:", err);
       }
