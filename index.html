@@ -114,11 +114,6 @@
       color: #6ee7b7;
       display: block;
     }
-    #result.error {
-      background: #7f1d1d;
-      color: #fca5a5;
-      display: block;
-    }
     .iq-value {
       font-size: 1.7rem;
       font-weight: 700;
@@ -160,7 +155,7 @@
 <body>
   <div class="container">
     <h1>Test IQ</h1>
-    <p class="subtitle">10 pytań • losowa kolejność • wynik orientacyjny</p>
+    <p class="subtitle">10 podchwytliwych pytań • losowane z większej bazy</p>
 
     <form id="quizForm">
       <label for="name">Twoje imię</label>
@@ -181,58 +176,123 @@
 
     const questionsBank = [
       {
-        question: "Która liczba powinna być następna w ciągu: 2, 6, 12, 20, 30, ...?",
-        options: ["40", "42", "36", "48"],
-        correct: 1
-      },
-      {
-        question: "Jeśli wszyscy Florkowie są Gorkami, a niektóre Gorki są Borkami, to które stwierdzenie jest prawdziwe?",
-        options: [
-          "Wszyscy Florkowie są Borkami",
-          "Niektóre Florki mogą być Borkami",
-          "Żaden Florek nie jest Borkiem",
-          "Wszystkie Borki są Florkami"
-        ],
-        correct: 1
-      },
-      {
-        question: "Które słowo nie pasuje do pozostałych?",
-        options: ["Pociąg", "Samochód", "Rower", "Droga"],
-        correct: 3
-      },
-      {
-        question: "Jaka jest następna litera w ciągu: A, C, F, J, O, ...?",
-        options: ["T", "U", "S", "V"],
-        correct: 1
-      },
-      {
-        question: "Ile wynosi 15% z 80?",
-        options: ["10", "12", "15", "8"],
-        correct: 1
-      },
-      {
-        question: "Jeśli 5 maszyn robi 5 elementów w 5 minut, to ile czasu zajmie 100 maszynom zrobienie 100 elementów?",
-        options: ["100 minut", "5 minut", "20 minut", "1 minuta"],
-        correct: 1
-      },
-      {
-        question: "Która figura logicznie uzupełnia ciąg: ○ △ □ ○ △ ...?",
-        options: ["○", "△", "□", "◇"],
-        correct: 2
-      },
-      {
-        question: "Słowo \"KOT\" ma taką samą relację do \"PIES\", jak \"MEBEL\" do:",
-        options: ["Krzesło", "Stół", "Szafa", "Meble"],
+        question: "Ile to jest połowa z 2 + 2?",
+        options: ["2", "3", "4", "1"],
         correct: 0
       },
       {
-        question: "Która liczba jest nieparzysta?",
-        options: ["222", "1116", "334", "1001"],
+        question: "Jeśli 1 = 5, 2 = 10, 3 = 15, to ile wynosi 5?",
+        options: ["20", "25", "1", "5"],
+        correct: 2
+      },
+      {
+        question: "Ile minut jest w 2,5 godziny?",
+        options: ["120", "150", "145", "250"],
+        correct: 1
+      },
+      {
+        question: "Co jest cięższe: 1 kg pierza czy 1 kg żelaza?",
+        options: ["Pierze", "Żelazo", "Ważą tyle samo", "Zależy od gęstości"],
+        correct: 2
+      },
+      {
+        question: "Ile razy można odjąć 5 od 25?",
+        options: ["5 razy", "1 raz", "25 razy", "0 razy"],
+        correct: 1
+      },
+      {
+        question: "Ile zwierząt zabrał Mojżesz na arkę?",
+        options: ["2 każdego gatunku", "7 par czystych", "Zero – to był Noe", "Wszystkie"],
+        correct: 2
+      },
+      {
+        question: "Jeśli lekarz przepisuje Ci 3 tabletki i każe brać je co pół godziny, ile czasu zajmie Ci zażycie wszystkich?",
+        options: ["1,5 godziny", "1 godzina", "3 godziny", "2 godziny"],
+        correct: 1
+      },
+      {
+        question: "Co można złamać nawet wtedy, gdy nigdy się tego nie dotknęło?",
+        options: ["Szkło", "Obietnicę", "Lód", "Serce"],
+        correct: 1
+      },
+      {
+        question: "Które słowo jest napisane niepoprawnie w słowniku?",
+        options: ["Niepoprawnie", "Słownik", "Wszystkie są poprawne", "Niepoprawne"],
+        correct: 0
+      },
+      {
+        question: "Ile miesięcy ma 28 dni?",
+        options: ["Tylko luty", "1", "12", "Zależy od roku"],
+        correct: 2
+      },
+      {
+        question: "Jak nazywa się jedyny ssak, który potrafi latać?",
+        options: ["Nietoperz", "Latająca wiewiórka", "Orzeł", "Pterozaur"],
+        correct: 0
+      },
+      {
+        question: "Co stoi pośrodku Warszawy?",
+        options: ["Pałac Kultury", "Litera \"s\"", "Syrenka", "Zamek"],
+        correct: 1
+      },
+      {
+        question: "Które słowo nie pasuje: okno, drzwi, ściana, sufit, podłoga, dach?",
+        options: ["Okno", "Drzwi", "Dach", "Sufit"],
+        correct: 2
+      },
+      {
+        question: "Co jest zawsze na początku końca i na końcu początku?",
+        options: ["Litera E", "Czas", "Punkt", "Nic"],
+        correct: 0
+      },
+      {
+        question: "Ile to jest 0,5 × 0,5?",
+        options: ["0,25", "1", "0,5", "0,05"],
+        correct: 0
+      },
+      {
+        question: "Jeśli w wyścigu wyprzedzasz osobę na 2. miejscu, na którym miejscu jesteś?",
+        options: ["Na 1.", "Na 2.", "Na 3.", "Zależy"],
+        correct: 1
+      },
+      {
+        question: "Ojciec ma 5 synów. Czterech nazywa się Piątek, Sobota, Niedziela i Poniedziałek. Jak ma na imię piąty?",
+        options: ["Wtorek", "Czwartek", "Jakub", "Piątek"],
+        correct: 2
+      },
+      {
+        question: "Jeśli masz tylko jedno zapałkę i wchodzisz do ciemnego pokoju z lampą, świecą i piecem – co zapalasz najpierw?",
+        options: ["Świecę", "Lampę", "Piec", "Zapałkę"],
         correct: 3
       },
       {
-        question: "Jeśli dziś jest wtorek, to jaki dzień będzie za 100 dni?",
-        options: ["Czwartek", "Piątek", "Sobota", "Niedziela"],
+        question: "Co można znaleźć na końcu wszystkiego?",
+        options: ["Kropkę", "Literę \"o\"", "Koniec", "Nic"],
+        correct: 1
+      },
+      {
+        question: "Ile nóg mają trzy psy, dwa koty i jeden pająk?",
+        options: ["28", "24", "22", "26"],
+        correct: 0
+      },
+      {
+        question: "Ile liter ma słowo \"alfabet\"?",
+        options: ["7", "8", "9", "6"],
+        correct: 0
+      },
+      {
+        question: "Która liczba jest większa: 1/2 czy 0,5?",
+        options: ["1/2", "0,5", "Są równe", "Nie da się porównać"],
+        correct: 2
+      },
+      {
+        question: "Co robi zegar, gdy jest uderzony?",
+        options: ["Idzie dalej", "Staje", "Dzwoni", "Nic"],
+        correct: 0
+      },
+      {
+        question: "Jaką literę wstawisz pomiędzy 2 i 3, żeby powstała poprawna liczba?",
+        options: ["i", "a", "o", "e"],
         correct: 0
       }
     ];
@@ -250,7 +310,10 @@
     let currentQuestions = [];
 
     function renderQuestions() {
-      currentQuestions = shuffle(questionsBank).map(q => {
+      // Losujemy 10 pytań z większej bazy
+      const selected = shuffle(questionsBank).slice(0, 10);
+
+      currentQuestions = selected.map(q => {
         const indices = shuffle([0, 1, 2, 3]);
         const shuffledOptions = indices.map(i => q.options[i]);
         const newCorrect = indices.indexOf(q.correct);
@@ -326,12 +389,10 @@
       const percent = Math.round((correctCount / total) * 100);
       const iq = estimateIQ(percent);
 
-      // Blokujemy formularz
       submitBtn.disabled = true;
       submitBtn.textContent = "Wysyłanie...";
       form.querySelectorAll("input").forEach(el => el.disabled = true);
 
-      // Wysyłka do Google Sheets
       try {
         await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
@@ -351,7 +412,6 @@
         console.error("Błąd wysyłki:", err);
       }
 
-      // Pokazujemy wynik na stronie
       let wrongHtml = "";
       if (wrongAnswers.length > 0) {
         wrongHtml = `
@@ -379,7 +439,6 @@
         ${wrongHtml}
       `;
       resultDiv.style.display = "block";
-
       submitBtn.textContent = "Test zakończony";
     });
   </script>
