@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz</title>
+  <title>Test IQ</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -63,6 +63,7 @@
       font-size: 1.1rem;
       margin-bottom: 14px;
       color: #f1f5f9;
+      line-height: 1.4;
     }
     .options label {
       display: flex;
@@ -81,6 +82,7 @@
       accent-color: #3b82f6;
       width: 18px;
       height: 18px;
+      flex-shrink: 0;
     }
     button {
       width: 100%;
@@ -102,11 +104,12 @@
     }
     #result {
       margin-top: 24px;
-      padding: 16px;
+      padding: 20px;
       border-radius: 10px;
       text-align: center;
       display: none;
       font-size: 1.1rem;
+      line-height: 1.5;
     }
     #result.success {
       background: #064e3b;
@@ -118,50 +121,26 @@
       color: #fca5a5;
       display: block;
     }
+    .iq-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 8px 0;
+      color: #34d399;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Quiz</h1>
-    <p class="subtitle">Odpowiedz na pytania i wyślij wynik</p>
+    <h1>Test IQ</h1>
+    <p class="subtitle">10 pytań • losowa kolejność • wynik orientacyjny</p>
 
     <form id="quizForm">
       <label for="name">Twoje imię</label>
       <input type="text" id="name" name="name" required placeholder="Wpisz imię...">
 
-      <!-- ========== PYTANIA ========== -->
-      <div class="question" data-correct="b">
-        <h3>1. Jaka jest stolica Polski?</h3>
-        <div class="options">
-          <label><input type="radio" name="q1" value="a" required> Kraków</label>
-          <label><input type="radio" name="q1" value="b"> Warszawa</label>
-          <label><input type="radio" name="q1" value="c"> Gdańsk</label>
-          <label><input type="radio" name="q1" value="d"> Wrocław</label>
-        </div>
-      </div>
+      <div id="questionsContainer"></div>
 
-      <div class="question" data-correct="a">
-        <h3>2. Ile wynosi 2 + 2?</h3>
-        <div class="options">
-          <label><input type="radio" name="q2" value="a" required> 4</label>
-          <label><input type="radio" name="q2" value="b"> 5</label>
-          <label><input type="radio" name="q2" value="c"> 22</label>
-          <label><input type="radio" name="q2" value="d"> 3</label>
-        </div>
-      </div>
-
-      <div class="question" data-correct="c">
-        <h3>3. Która planeta jest najbliżej Słońca?</h3>
-        <div class="options">
-          <label><input type="radio" name="q3" value="a" required> Wenus</label>
-          <label><input type="radio" name="q3" value="b"> Mars</label>
-          <label><input type="radio" name="q3" value="c"> Merkury</label>
-          <label><input type="radio" name="q3" value="d"> Ziemia</label>
-        </div>
-      </div>
-      <!-- ========== KONIEC PYTAŃ ========== -->
-
-      <button type="submit" id="submitBtn">Wyślij wynik</button>
+      <button type="submit" id="submitBtn">Sprawdź wynik</button>
     </form>
 
     <div id="result"></div>
@@ -169,8 +148,129 @@
 
   <script>
     // ========== KONFIGURACJA ==========
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqQXNBRTwN95XiEt5t9he96XV2tlZjkIduuLAPxV0n5SB_5Fye6nkpf8p4bAFLQ_Siaw/exec";   // ← wklej URL z Apps Script
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqQXNBRTwN95XiEt5t9he96XV2tlZjkIduuLAPxV0n5SB_5Fye6nkpf8p4bAFLQ_Siaw/exec";
     // ==================================
+
+    // 10 pytań w stylu testu IQ
+    const questionsBank = [
+      {
+        question: "Która liczba powinna być następna w ciągu: 2, 6, 12, 20, 30, ...?",
+        options: ["40", "42", "36", "48"],
+        correct: 1 // 42 (różnice +4, +6, +8, +10, +12)
+      },
+      {
+        question: "Jeśli wszyscy Florkowie są Gorkami, a niektóre Gorki są Borkami, to które stwierdzenie jest prawdziwe?",
+        options: [
+          "Wszyscy Florkowie są Borkami",
+          "Niektóre Florki mogą być Borkami",
+          "Żaden Florek nie jest Borkiem",
+          "Wszystkie Borki są Florkami"
+        ],
+        correct: 1
+      },
+      {
+        question: "Które słowo nie pasuje do pozostałych?",
+        options: ["Pociąg", "Samochód", "Rower", "Droga"],
+        correct: 3 // Droga – pozostałe to środki transportu
+      },
+      {
+        question: "Jaka jest następna litera w ciągu: A, C, F, J, O, ...?",
+        options: ["T", "U", "S", "V"],
+        correct: 1 // U (różnice +2, +3, +4, +5, +6)
+      },
+      {
+        question: "Ile wynosi 15% z 80?",
+        options: ["10", "12", "15", "8"],
+        correct: 1 // 12
+      },
+      {
+        question: "Jeśli 5 maszyn robi 5 elementów w 5 minut, to ile czasu zajmie 100 maszynom zrobienie 100 elementów?",
+        options: ["100 minut", "5 minut", "20 minut", "1 minuta"],
+        correct: 1 // 5 minut
+      },
+      {
+        question: "Która figura logicznie uzupełnia ciąg: ○ △ □ ○ △ ...?",
+        options: ["○", "△", "□", "◇"],
+        correct: 2 // □
+      },
+      {
+        question: "Słowo \"KOT\" ma taką samą relację do \"PIES\", jak \"MEBEL\" do:",
+        options: ["Krzesło", "Stół", "Szafa", "Meble"],
+        correct: 0 // Krzesło (konkretny przykład kategorii)
+      },
+      {
+        question: "Która liczba jest nieparzysta?",
+        options: ["222", "1116", "334", "1001"],
+        correct: 3 // 1001
+      },
+      {
+        question: "Jeśli dziś jest wtorek, to jaki dzień będzie za 100 dni?",
+        options: ["Czwartek", "Piątek", "Sobota", "Niedziela"],
+        correct: 0 // 100 ÷ 7 = 14 reszty 2 → wtorek + 2 = czwartek
+      }
+    ];
+
+    // Funkcja tasująca tablicę (Fisher-Yates)
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Renderowanie pytań
+    const container = document.getElementById("questionsContainer");
+    let currentQuestions = [];
+
+    function renderQuestions() {
+      currentQuestions = shuffle(questionsBank).map(q => {
+        // Tasujemy też odpowiedzi, zapamiętując poprawny indeks
+        const indices = shuffle([0, 1, 2, 3]);
+        const shuffledOptions = indices.map(i => q.options[i]);
+        const newCorrect = indices.indexOf(q.correct);
+        return {
+          question: q.question,
+          options: shuffledOptions,
+          correct: newCorrect
+        };
+      });
+
+      container.innerHTML = "";
+      currentQuestions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `
+          <h3>${index + 1}. ${q.question}</h3>
+          <div class="options">
+            ${q.options.map((opt, i) => `
+              <label>
+                <input type="radio" name="q${index}" value="${i}" required>
+                ${opt}
+              </label>
+            `).join("")}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    renderQuestions();
+
+    // Przybliżone IQ na podstawie wyniku (tylko orientacyjne!)
+    function estimateIQ(percent) {
+      // Prosta mapa dla zabawy (średnia ~100)
+      if (percent >= 90) return 130 + Math.round((percent - 90) * 1.5);
+      if (percent >= 80) return 120 + Math.round((percent - 80));
+      if (percent >= 70) return 112 + Math.round((percent - 70) * 0.8);
+      if (percent >= 60) return 105 + Math.round((percent - 60) * 0.7);
+      if (percent >= 50) return 98 + Math.round((percent - 50) * 0.7);
+      if (percent >= 40) return 90 + Math.round((percent - 40) * 0.8);
+      if (percent >= 30) return 82 + Math.round((percent - 30) * 0.8);
+      if (percent >= 20) return 75 + Math.round((percent - 20) * 0.7);
+      return 70 + Math.round(percent * 0.25);
+    }
 
     const form = document.getElementById("quizForm");
     const resultDiv = document.getElementById("result");
@@ -182,18 +282,18 @@
       const name = document.getElementById("name").value.trim();
       if (!name) return;
 
-      const questions = document.querySelectorAll(".question");
       let correct = 0;
-      const total = questions.length;
+      const total = currentQuestions.length;
 
-      questions.forEach((q, index) => {
-        const selected = form.querySelector(`input[name="q${index + 1}"]:checked`);
-        if (selected && selected.value === q.dataset.correct) {
+      currentQuestions.forEach((q, index) => {
+        const selected = form.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && parseInt(selected.value) === q.correct) {
           correct++;
         }
       });
 
       const percent = Math.round((correct / total) * 100);
+      const iq = estimateIQ(percent);
 
       submitBtn.disabled = true;
       submitBtn.textContent = "Wysyłanie...";
@@ -207,12 +307,19 @@
             name: name,
             percent: percent,
             correct: correct,
-            total: total
+            total: total,
+            iq: iq
           })
         });
 
         resultDiv.className = "success";
-        resultDiv.textContent = `Wysłano! Twój wynik: ${percent}% (${correct}/${total})`;
+        resultDiv.innerHTML = `
+          <div>Twój wynik: <strong>${percent}%</strong> (${correct}/${total})</div>
+          <div class="iq-value">Szacowane IQ: ~${iq}</div>
+          <div style="font-size:0.9rem; opacity:0.85; margin-top:8px;">
+            (Wynik orientacyjny – to nie jest profesjonalny test IQ)
+          </div>
+        `;
         resultDiv.style.display = "block";
 
       } catch (err) {
@@ -222,7 +329,7 @@
         resultDiv.style.display = "block";
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Wyślij wynik";
+        submitBtn.textContent = "Sprawdź wynik";
       }
     });
   </script>
