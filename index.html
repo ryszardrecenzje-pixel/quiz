@@ -173,21 +173,26 @@
     // ========== KONFIGURACJA ==========
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqQXNBRTwN95XiEt5t9he96XV2tlZjkIduuLAPxV0n5SB_5Fye6nkpf8p4bAFLQ_Siaw/exec";
     // ==================================
-
     const questionsBank = [
+      // === Logika i myślenie ===
       {
-        question: "Ile to jest połowa z 2 + 2?",
-        options: ["2", "3", "4", "1"],
-        correct: 0
-      },
-      {
-        question: "Jeśli 1 = 5, 2 = 10, 3 = 15, to ile wynosi 5?",
-        options: ["20", "25", "1", "5"],
+        question: "Ile zwierząt zabrał Mojżesz na arkę?",
+        options: ["2 każdego gatunku", "7 par czystych", "Zero – to był Noe", "Wszystkie"],
         correct: 2
       },
       {
-        question: "Ile minut jest w 2,5 godziny?",
-        options: ["120", "150", "145", "250"],
+        question: "Jeśli lekarz każe Ci brać 3 tabletki co pół godziny, ile czasu zajmie zażycie wszystkich?",
+        options: ["1,5 godziny", "1 godzina", "3 godziny", "2 godziny"],
+        correct: 1
+      },
+      {
+        question: "Jeśli w wyścigu wyprzedzasz osobę na 2. miejscu, na którym miejscu jesteś?",
+        options: ["Na 1.", "Na 2.", "Na 3.", "Zależy od liczby zawodników"],
+        correct: 1
+      },
+      {
+        question: "Ile razy można odjąć 5 od 25?",
+        options: ["5 razy", "1 raz", "25 razy", "0 razy"],
         correct: 1
       },
       {
@@ -196,53 +201,25 @@
         correct: 2
       },
       {
-        question: "Ile razy można odjąć 5 od 25?",
-        options: ["5 razy", "1 raz", "25 razy", "0 razy"],
-        correct: 1
-      },
-      {
-        question: "Ile zwierząt zabrał Mojżesz na arkę?",
-        options: ["2 każdego gatunku", "7 par czystych", "Zero – to był Noe", "Wszystkie"],
-        correct: 2
-      },
-      {
-        question: "Jeśli lekarz przepisuje Ci 3 tabletki i każe brać je co pół godziny, ile czasu zajmie Ci zażycie wszystkich?",
-        options: ["1,5 godziny", "1 godzina", "3 godziny", "2 godziny"],
-        correct: 1
-      },
-      {
-        question: "Co można złamać nawet wtedy, gdy nigdy się tego nie dotknęło?",
-        options: ["Szkło", "Obietnicę", "Lód", "Serce"],
-        correct: 1
-      },
-      {
-        question: "Które słowo jest napisane niepoprawnie w słowniku?",
-        options: ["Niepoprawnie", "Słownik", "Wszystkie są poprawne", "Niepoprawne"],
-        correct: 0
+        question: "Jeśli masz tylko jedną zapałkę i wchodzisz do ciemnego pokoju z lampą naftową, świecą i piecem – co zapalasz najpierw?",
+        options: ["Świecę", "Lampę", "Piec", "Zapałkę"],
+        correct: 3
       },
       {
         question: "Ile miesięcy ma 28 dni?",
-        options: ["Tylko luty", "1", "12", "Zależy od roku"],
+        options: ["Tylko luty", "Jeden", "Wszystkie dwanaście", "Zależy od roku"],
         correct: 2
       },
       {
-        question: "Jak nazywa się jedyny ssak, który potrafi latać?",
-        options: ["Nietoperz", "Latająca wiewiórka", "Orzeł", "Pterozaur"],
-        correct: 0
-      },
-      {
-        question: "Co stoi pośrodku Warszawy?",
-        options: ["Pałac Kultury", "Litera \"s\"", "Syrenka", "Zamek"],
+        question: "Co można złamać, nawet jeśli nigdy się tego nie dotknęło?",
+        options: ["Szkło", "Obietnicę", "Lód", "Serce"],
         correct: 1
       },
+    
+      // === Matematyka podchwytliwa ===
       {
-        question: "Które słowo nie pasuje: okno, drzwi, ściana, sufit, podłoga, dach?",
-        options: ["Okno", "Drzwi", "Dach", "Sufit"],
-        correct: 2
-      },
-      {
-        question: "Co jest zawsze na początku końca i na końcu początku?",
-        options: ["Litera E", "Czas", "Punkt", "Nic"],
+        question: "Ile to jest połowa z 2 + 2?",
+        options: ["2", "3", "4", "1"],
         correct: 0
       },
       {
@@ -251,34 +228,14 @@
         correct: 0
       },
       {
-        question: "Jeśli w wyścigu wyprzedzasz osobę na 2. miejscu, na którym miejscu jesteś?",
-        options: ["Na 1.", "Na 2.", "Na 3.", "Zależy"],
+        question: "Ile minut jest w 2,5 godziny?",
+        options: ["120", "150", "145", "250"],
         correct: 1
       },
       {
-        question: "Ojciec ma 5 synów. Czterech nazywa się Piątek, Sobota, Niedziela i Poniedziałek. Jak ma na imię piąty?",
-        options: ["Wtorek", "Czwartek", "Jakub", "Piątek"],
+        question: "Jeśli 1 = 5, 2 = 10, 3 = 15, to ile wynosi 5?",
+        options: ["20", "25", "1", "5"],
         correct: 2
-      },
-      {
-        question: "Jeśli masz tylko jedno zapałkę i wchodzisz do ciemnego pokoju z lampą, świecą i piecem – co zapalasz najpierw?",
-        options: ["Świecę", "Lampę", "Piec", "Zapałkę"],
-        correct: 3
-      },
-      {
-        question: "Co można znaleźć na końcu wszystkiego?",
-        options: ["Kropkę", "Literę \"o\"", "Koniec", "Nic"],
-        correct: 1
-      },
-      {
-        question: "Ile nóg mają trzy psy, dwa koty i jeden pająk?",
-        options: ["28", "24", "22", "26"],
-        correct: 0
-      },
-      {
-        question: "Ile liter ma słowo \"alfabet\"?",
-        options: ["7", "8", "9", "6"],
-        correct: 0
       },
       {
         question: "Która liczba jest większa: 1/2 czy 0,5?",
@@ -286,14 +243,83 @@
         correct: 2
       },
       {
-        question: "Co robi zegar, gdy jest uderzony?",
-        options: ["Idzie dalej", "Staje", "Dzwoni", "Nic"],
+        question: "Ile nóg mają trzy psy, dwa koty i jeden pająk?",
+        options: ["28", "24", "22", "26"],
+        correct: 0
+      },
+    
+      // === Język i spostrzegawczość ===
+      {
+        question: "Które słowo jest napisane niepoprawnie w słowniku?",
+        options: ["Niepoprawnie", "Słownik", "Wszystkie są poprawne", "Niepoprawne"],
         correct: 0
       },
       {
-        question: "Jaką literę wstawisz pomiędzy 2 i 3, żeby powstała poprawna liczba?",
-        options: ["i", "a", "o", "e"],
+        question: "Co stoi pośrodku Warszawy?",
+        options: ["Pałac Kultury", "Litera „s”", "Syrenka", "Zamek Królewski"],
+        correct: 1
+      },
+      {
+        question: "Które słowo nie pasuje do pozostałych: okno, drzwi, ściana, sufit, podłoga, dach?",
+        options: ["Okno", "Drzwi", "Dach", "Sufit"],
+        correct: 2
+      },
+      {
+        question: "Ile liter ma słowo „alfabet”?",
+        options: ["7", "8", "9", "6"],
         correct: 0
+      },
+    
+      // === Hobbit / Władca Pierścieni (poziom podstawowy) ===
+      {
+        question: "Jak nazywa się dom Bilba Bagginsa?",
+        options: ["Bag End", "Rivendell", "Mordor", "Shire"],
+        correct: 0
+      },
+      {
+        question: "Kto znalazł Pierścień w jaskini Golluma?",
+        options: ["Gandalf", "Frodo", "Bilbo", "Aragorn"],
+        correct: 2
+      },
+      {
+        question: "Jak nazywa się smok, który spał na skarbie w Samotnej Górze?",
+        options: ["Smaug", "Drogon", "Norbert", "Fafnir"],
+        correct: 0
+      },
+      {
+        question: "Który z hobbita miał największe stopy?",
+        options: ["Frodo", "Sam", "Pippin", "Wszyscy hobbici mają duże stopy"],
+        correct: 3
+      },
+      {
+        question: "Jak nazywa się mag, który pomagał Bilbowi i krasnoludom?",
+        options: ["Saruman", "Gandalf", "Radagast", "Albus"],
+        correct: 1
+      },
+      {
+        question: "Co Gollum nazywał „swoim skarbem”?",
+        options: ["Miecz", "Pierścień", "Złoto", "Jaskinię"],
+        correct: 1
+      },
+      {
+        question: "W jakiej krainie mieszkają hobbici?",
+        options: ["Mordor", "Shire (Włość)", "Gondor", "Rohan"],
+        correct: 1
+      },
+      {
+        question: "Kto napisał książkę „Hobbit, czyli tam i z powrotem”?",
+        options: ["J.K. Rowling", "J.R.R. Tolkien", "C.S. Lewis", "George R.R. Martin"],
+        correct: 1
+      },
+      {
+        question: "Jak nazywa się miecz Bilba?",
+        options: ["Andúril", "Sting (Żądło)", "Glamdring", "Narsil"],
+        correct: 1
+      },
+      {
+        question: "Ile było krasnoludów w drużynie Thorina?",
+        options: ["7", "12", "13", "9"],
+        correct: 2
       }
     ];
 
