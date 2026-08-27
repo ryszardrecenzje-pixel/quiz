@@ -175,139 +175,123 @@
     // ==================================
 
     const questionsBank = [
-      // === Klasyczne zagadki Bilba i Golluma ===
-      {
-        question: "Co ma korzenie, których nikt nie widzi, jest wyższe od drzew, rośnie w górę, a jednak nigdy nie rośnie?",
-        options: ["Góra", "Chmura", "Dąb", "Wieża"],
-        correct: 0
-      },
-      {
-        question: "Trzydzieści białych koni na czerwonym wzgórzu. Najpierw żują, potem tupią, a potem stoją nieruchomo. Co to jest?",
-        options: ["Zęby", "Palce", "Owce", "Chmury"],
-        correct: 0
-      },
-      {
-        question: "Bez głosu krzyczy, bez skrzydeł fruwa, bez zębów gryzie, bez ust mamrocze. Co to?",
-        options: ["Wiatr", "Echo", "Cień", "Ogień"],
-        correct: 0
-      },
-      {
-        question: "Pudełko bez zawiasów, bez klucza i bez pokrywy, a jednak złoty skarb w środku się chowa. Co to?",
-        options: ["Jajko", "Orzech", "Skrzynia", "Dynia"],
-        correct: 0
-      },
-      {
-        question: "Żyje bez oddechu, zimne jak śmierć, nigdy nie pragnie, a zawsze pije, całe w zbroi, a nigdy nie brzęczy. Co to?",
-        options: ["Ryba", "Wąż", "Żółw", "Krab"],
-        correct: 0
-      },
-      {
-        question: "Tego nie widać, nie da się poczuć, nie słychać i nie da się powąchać. Leży za gwiazdami i pod górami, wypełnia puste dziury. Przychodzi pierwsze i idzie za wszystkim, kończy życie, zabija śmiech. Co to?",
-        options: ["Ciemność", "Cień", "Śmierć", "Cisza"],
-        correct: 0
-      },
-      {
-        question: "To pożera wszystko: ptaki, zwierzęta, drzewa, kwiaty. Gryzie żelazo, gryzie stal, mieli twarde kamienie na mąkę. Zabija królów, niszczy miasta i ściera wysokie góry. Co to?",
-        options: ["Czas", "Ogień", "Woda", "Rdza"],
-        correct: 0
-      },
-      {
-        question: "Co Bilbo zapytał Golluma na samym końcu (choć to nie była prawdziwa zagadka)?",
-        options: ["Co mam w kieszeni?", "Jak się nazywasz?", "Gdzie jest wyjście?", "Co jesz na śniadanie?"],
-        correct: 0
-      },
+      // === Zagadki Bilba i Golluma + podobne ===
+      { question: "Co ma korzenie, których nikt nie widzi, jest wyższe od drzew, rośnie w górę, a jednak nigdy nie rośnie?", options: ["Góra", "Chmura", "Dąb", "Wieża"], correct: 0 },
+      { question: "Trzydzieści białych koni na czerwonym wzgórzu. Najpierw żują, potem tupią, a potem stoją nieruchomo. Co to?", options: ["Zęby", "Palce", "Owce", "Chmury"], correct: 0 },
+      { question: "Bez głosu krzyczy, bez skrzydeł fruwa, bez zębów gryzie, bez ust mamrocze. Co to?", options: ["Wiatr", "Echo", "Cień", "Ogień"], correct: 0 },
+      { question: "Pudełko bez zawiasów, bez klucza i bez pokrywy, a jednak złoty skarb w środku się chowa. Co to?", options: ["Jajko", "Orzech", "Skrzynia", "Dynia"], correct: 0 },
+      { question: "Żyje bez oddechu, zimne jak śmierć, nigdy nie pragnie, a zawsze pije, całe w zbroi, a nigdy nie brzęczy. Co to?", options: ["Ryba", "Wąż", "Żółw", "Krab"], correct: 0 },
+      { question: "Tego nie widać, nie da się poczuć, nie słychać i nie da się powąchać. Leży za gwiazdami i pod górami, wypełnia puste dziury. Przychodzi pierwsze i idzie za wszystkim, kończy życie, zabija śmiech. Co to?", options: ["Ciemność", "Cień", "Śmierć", "Cisza"], correct: 0 },
+      { question: "To pożera wszystko: ptaki, zwierzęta, drzewa, kwiaty. Gryzie żelazo, gryzie stal, mieli twarde kamienie na mąkę. Zabija królów, niszczy miasta i ściera wysokie góry. Co to?", options: ["Czas", "Ogień", "Woda", "Rdza"], correct: 0 },
+      { question: "Co Bilbo zapytał Golluma na samym końcu (choć to nie była prawdziwa zagadka)?", options: ["Co mam w kieszeni?", "Jak się nazywasz?", "Gdzie jest wyjście?", "Co jesz na śniadanie?"], correct: 0 },
     
-      // === Inne dobre zagadki i logika ===
-      {
-        question: "Ile zwierząt zabrał Mojżesz na arkę?",
-        options: ["2 każdego gatunku", "7 par czystych", "Zero – to był Noe", "Wszystkie"],
-        correct: 2
-      },
-      {
-        question: "Jeśli lekarz każe Ci brać 3 tabletki co pół godziny, ile czasu zajmie zażycie wszystkich?",
-        options: ["1,5 godziny", "1 godzina", "3 godziny", "2 godziny"],
-        correct: 1
-      },
-      {
-        question: "Jeśli w wyścigu wyprzedzasz osobę na 2. miejscu, na którym miejscu jesteś?",
-        options: ["Na 1.", "Na 2.", "Na 3.", "Zależy"],
-        correct: 1
-      },
-      {
-        question: "Ile razy można odjąć 5 od 25?",
-        options: ["5 razy", "1 raz", "25 razy", "0 razy"],
-        correct: 1
-      },
-      {
-        question: "Co jest cięższe: 1 kg pierza czy 1 kg żelaza?",
-        options: ["Pierze", "Żelazo", "Ważą tyle samo", "Zależy od gęstości"],
-        correct: 2
-      },
-      {
-        question: "Jeśli masz tylko jedną zapałkę i wchodzisz do ciemnego pokoju z lampą, świecą i piecem – co zapalasz najpierw?",
-        options: ["Świecę", "Lampę", "Piec", "Zapałkę"],
-        correct: 3
-      },
-      {
-        question: "Ile miesięcy ma 28 dni?",
-        options: ["Tylko luty", "Jeden", "Wszystkie dwanaście", "Zależy od roku"],
-        correct: 2
-      },
-      {
-        question: "Co można złamać, nawet jeśli nigdy się tego nie dotknęło?",
-        options: ["Szkło", "Obietnicę", "Lód", "Serce"],
-        correct: 1
-      },
-      {
-        question: "Ile to jest połowa z 2 + 2?",
-        options: ["2", "3", "4", "1"],
-        correct: 0
-      },
-      {
-        question: "Ile to jest 0,5 × 0,5?",
-        options: ["0,25", "1", "0,5", "0,05"],
-        correct: 0
-      },
-      {
-        question: "Ile minut jest w 2,5 godziny?",
-        options: ["120", "150", "145", "250"],
-        correct: 1
-      },
-      {
-        question: "Jeśli 1 = 5, 2 = 10, 3 = 15, to ile wynosi 5?",
-        options: ["20", "25", "1", "5"],
-        correct: 2
-      },
-      {
-        question: "Która liczba jest większa: 1/2 czy 0,5?",
-        options: ["1/2", "0,5", "Są równe", "Nie da się porównać"],
-        correct: 2
-      },
-      {
-        question: "Ile nóg mają trzy psy, dwa koty i jeden pająk?",
-        options: ["28", "24", "22", "26"],
-        correct: 0
-      },
-      {
-        question: "Które słowo jest napisane niepoprawnie w słowniku?",
-        options: ["Niepoprawnie", "Słownik", "Wszystkie są poprawne", "Niepoprawne"],
-        correct: 0
-      },
-      {
-        question: "Co stoi pośrodku Wrocławia?",
-        options: ["Pałac Kultury", "Litera „c”", "Syrenka", "Zamek"],
-        correct: 1
-      },
-      {
-        question: "Które słowo nie pasuje: okno, drzwi, ściana, sufit, podłoga, dach?",
-        options: ["Okno", "Drzwi", "Dach", "Sufit"],
-        correct: 2
-      },
-      {
-        question: "Ile liter ma słowo „alfabet”?",
-        options: ["7", "8", "9", "6"],
-        correct: 0
-      }
+      // === Klasyczne podchwytliwe ===
+      { question: "Ile zwierząt zabrał Mojżesz na arkę?", options: ["2 każdego gatunku", "7 par czystych", "Zero – to był Noe", "Wszystkie"], correct: 2 },
+      { question: "Jeśli lekarz każe Ci brać 3 tabletki co pół godziny, ile czasu zajmie zażycie wszystkich?", options: ["1,5 godziny", "1 godzina", "3 godziny", "2 godziny"], correct: 1 },
+      { question: "Jeśli w wyścigu wyprzedzasz osobę na 2. miejscu, na którym miejscu jesteś?", options: ["Na 1.", "Na 2.", "Na 3.", "Zależy"], correct: 1 },
+      { question: "Ile razy można odjąć 5 od 25?", options: ["5 razy", "1 raz", "25 razy", "0 razy"], correct: 1 },
+      { question: "Co jest cięższe: 1 kg pierza czy 1 kg żelaza?", options: ["Pierze", "Żelazo", "Ważą tyle samo", "Zależy od gęstości"], correct: 2 },
+      { question: "Jeśli masz tylko jedną zapałkę i wchodzisz do ciemnego pokoju z lampą, świecą i piecem – co zapalasz najpierw?", options: ["Świecę", "Lampę", "Piec", "Zapałkę"], correct: 3 },
+      { question: "Ile miesięcy ma 28 dni?", options: ["Tylko luty", "Jeden", "Wszystkie dwanaście", "Zależy od roku"], correct: 2 },
+      { question: "Co można złamać, nawet jeśli nigdy się tego nie dotknęło?", options: ["Szkło", "Obietnicę", "Lód", "Serce"], correct: 1 },
+      { question: "Które słowo jest napisane niepoprawnie w słowniku?", options: ["Niepoprawnie", "Słownik", "Wszystkie są poprawne", "Niepoprawne"], correct: 0 },
+      { question: "Co stoi pośrodku Warszawy?", options: ["Pałac Kultury", "Litera „s”", "Syrenka", "Zamek"], correct: 1 },
+      { question: "Które słowo nie pasuje: okno, drzwi, ściana, sufit, podłoga, dach?", options: ["Okno", "Drzwi", "Dach", "Sufit"], correct: 2 },
+      { question: "Ile liter ma słowo „alfabet”?", options: ["7", "8", "9", "6"], correct: 0 },
+    
+      // === Matematyka i obliczenia ===
+      { question: "Ile to jest połowa z 2 + 2?", options: ["2", "3", "4", "1"], correct: 0 },
+      { question: "Ile to jest 0,5 × 0,5?", options: ["0,25", "1", "0,5", "0,05"], correct: 0 },
+      { question: "Ile minut jest w 2,5 godziny?", options: ["120", "150", "145", "250"], correct: 1 },
+      { question: "Jeśli 1 = 5, 2 = 10, 3 = 15, to ile wynosi 5?", options: ["20", "25", "1", "5"], correct: 2 },
+      { question: "Która liczba jest większa: 1/2 czy 0,5?", options: ["1/2", "0,5", "Są równe", "Nie da się porównać"], correct: 2 },
+      { question: "Ile nóg mają trzy psy, dwa koty i jeden pająk?", options: ["28", "24", "22", "26"], correct: 0 },
+      { question: "Ile to jest 7 × 8?", options: ["54", "56", "64", "48"], correct: 1 },
+      { question: "Ile to jest 15% z 200?", options: ["20", "30", "25", "35"], correct: 1 },
+      { question: "Ile to jest 9 × 9?", options: ["81", "72", "99", "18"], correct: 0 },
+      { question: "Ile to jest 100 − 37?", options: ["73", "63", "67", "53"], correct: 1 },
+      { question: "Ile to jest 12 × 11?", options: ["121", "132", "144", "112"], correct: 1 },
+      { question: "Ile to jest 1/4 z 100?", options: ["20", "25", "40", "50"], correct: 1 },
+      { question: "Ile to jest 8²?", options: ["16", "64", "32", "48"], correct: 1 },
+      { question: "Ile to jest 3³?", options: ["9", "27", "6", "18"], correct: 1 },
+      { question: "Ile to jest 50% z 90?", options: ["40", "45", "50", "35"], correct: 1 },
+      { question: "Ile to jest 6 × 7 + 8?", options: ["50", "42", "56", "48"], correct: 0 },
+      { question: "Ile to jest 1000 − 1?", options: ["999", "990", "1001", "998"], correct: 0 },
+      { question: "Ile to jest 2 × 2 × 2 × 2?", options: ["8", "16", "12", "10"], correct: 1 },
+      { question: "Ile to jest 25% z 80?", options: ["15", "20", "25", "40"], correct: 1 },
+      { question: "Ile to jest 11 × 11?", options: ["111", "121", "131", "101"], correct: 1 },
+    
+      // === Więcej logiki i spostrzegawczości ===
+      { question: "Co ma klucze, ale nie otwiera drzwi?", options: ["Mapa", "Fortepian", "Zamek", "Szyfr"], correct: 1 },
+      { question: "Co ma głowę i ogon, ale nie ma ciała?", options: ["Moneta", "Wąż", "Strzała", "Gwóźdź"], correct: 0 },
+      { question: "Co rośnie, gdy je karmisz, a umiera, gdy je poisz?", options: ["Ogień", "Roślina", "Człowiek", "Bakteria"], correct: 0 },
+      { question: "Im więcej z niej bierzesz, tym więcej zostawiasz. Co to?", options: ["Dół", "Ślad", "Pamięć", "Cień"], correct: 0 },
+      { question: "Co ma wiele zębów, ale nie gryzie?", options: ["Piła", "Zamek błyskawiczny", "Grzebień", "Wszystkie powyższe"], correct: 3 },
+      { question: "Co można trzymać bez dotykania rękami?", options: ["Oddech", "Myśl", "Uśmiech", "Wszystkie powyższe"], correct: 3 },
+      { question: "Co jest pełne dziur, a jednak trzyma wodę?", options: ["Gąbka", "Sitko", "Chmura", "Ser"], correct: 0 },
+      { question: "Co ma jedno oko, ale nie widzi?", options: ["Igła", "Cyklon", "Ziemniak", "Wszystkie powyższe"], correct: 0 },
+      { question: "Co biegnie, ale nie chodzi?", options: ["Woda", "Czas", "Nos", "Wszystkie powyższe"], correct: 3 },
+      { question: "Co ma 4 nogi rano, 2 w południe i 3 wieczorem?", options: ["Człowiek", "Pies", "Stół", "Krzesło"], correct: 0 },
+    
+      // === Kolejne obliczenia i ciągi ===
+      { question: "Jaka liczba powinna być następna: 2, 4, 8, 16, ...?", options: ["24", "32", "20", "18"], correct: 1 },
+      { question: "Jaka liczba powinna być następna: 1, 3, 6, 10, 15, ...?", options: ["18", "21", "20", "25"], correct: 1 },
+      { question: "Jaka liczba powinna być następna: 5, 10, 20, 40, ...?", options: ["60", "80", "70", "100"], correct: 1 },
+      { question: "Jaka liczba powinna być następna: 1, 4, 9, 16, 25, ...?", options: ["30", "36", "49", "32"], correct: 1 },
+      { question: "Jaka litera powinna być następna: A, C, E, G, ...?", options: ["H", "I", "J", "K"], correct: 1 },
+      { question: "Jaka litera powinna być następna: Z, X, V, T, ...?", options: ["S", "R", "Q", "P"], correct: 1 },
+      { question: "Ile to jest 13 × 4?", options: ["42", "52", "48", "56"], correct: 1 },
+      { question: "Ile to jest 17 + 25?", options: ["42", "41", "43", "40"], correct: 0 },
+      { question: "Ile to jest 81 ÷ 9?", options: ["8", "9", "7", "11"], correct: 1 },
+      { question: "Ile to jest 6³?", options: ["36", "216", "18", "72"], correct: 1 },
+    
+      // === Jeszcze więcej podchwytliwych ===
+      { question: "Ojciec ma 5 synów. Czterech nazywa się Piątek, Sobota, Niedziela i Poniedziałek. Jak ma na imię piąty?", options: ["Wtorek", "Czwartek", "Jakub", "Piątek"], correct: 2 },
+      { question: "Co robi zegar, gdy jest uderzony?", options: ["Idzie dalej", "Staje", "Dzwoni", "Nic"], correct: 0 },
+      { question: "Jaką literę wstawisz pomiędzy 2 i 3, żeby powstała poprawna liczba?", options: ["i", "a", "o", "e"], correct: 0 },
+      { question: "Co można znaleźć na końcu wszystkiego?", options: ["Kropkę", "Literę „o”", "Koniec", "Nic"], correct: 1 },
+      { question: "Ile liter jest w słowie „pięć liter”?", options: ["5", "9", "10", "8"], correct: 1 },
+      { question: "Co jest zawsze przed tobą, a nie możesz tego zobaczyć?", options: ["Przyszłość", "Nos", "Powietrze", "Cień"], correct: 0 },
+      { question: "Jak nazywa się jedyny ssak, który potrafi latać?", options: ["Nietoperz", "Latająca wiewiórka", "Orzeł", "Pterozaur"], correct: 0 },
+      { question: "Co ma skrzydła, ale nie fruwa?", options: ["Budynek", "Samolot", "Drzwi", "Książka"], correct: 0 },
+      { question: "Co jest cięższe od żelaza, a lżejsze od puchu?", options: ["Nic", "Powietrze", "Woda", "Cień"], correct: 0 },
+      { question: "Ile końców ma kij?", options: ["2", "1", "3", "Zależy jak złamiesz"], correct: 0 },
+    
+      // === Dodatkowe zagadki i logika ===
+      { question: "Co ma miasta bez domów, lasy bez drzew i rzeki bez wody?", options: ["Mapa", "Sen", "Obraz", "Książka"], correct: 0 },
+      { question: "Im więcej jest mokre, tym bardziej jest suche. Co to?", options: ["Ręcznik", "Gąbka", "Ubranie", "Włosy"], correct: 0 },
+      { question: "Co można złapać, ale nie można rzucić?", options: ["Przeziębienie", "Piłkę", "Uwagę", "Obydwie A i C"], correct: 3 },
+      { question: "Co stoi na jednej nodze?", options: ["Grzyb", "Człowiek", "Stół", "Wszystkie powyższe"], correct: 0 },
+      { question: "Co ma serce, ale nie bije?", options: ["Karciocha", "Drzewo", "Artichoke (karczoch)", "Wszystkie powyższe"], correct: 2 },
+      { question: "Co jest czarne, gdy jest czyste, i białe, gdy jest brudne?", options: ["Tablica", "Kartka", "Chmura", "Zęby"], correct: 0 },
+      { question: "Co można zerwać, ale nie można odłożyć z powrotem?", options: ["Obietnicę", "Kwiat", "Jabłko", "Wszystkie powyższe"], correct: 0 },
+      { question: "Co ma ręce, ale nie może klaskać?", options: ["Zegar", "Lalka", "Manekin", "Wszystkie powyższe"], correct: 0 },
+      { question: "Co jest pełne wiedzy, ale niczego nie wie?", options: ["Książka", "Komputer", "Encyklopedia", "Wszystkie powyższe"], correct: 0 },
+      { question: "Co idzie w górę, a nigdy nie schodzi?", options: ["Wiek", "Dym", "Balon", "Temperatura"], correct: 0 },
+    
+      // === Ostatnie obliczenia i ciągi ===
+      { question: "Ile to jest 14 × 3?", options: ["42", "41", "43", "32"], correct: 0 },
+      { question: "Ile to jest 72 ÷ 8?", options: ["8", "9", "7", "6"], correct: 1 },
+      { question: "Ile to jest 5 × 5 × 5?", options: ["25", "75", "125", "15"], correct: 2 },
+      { question: "Jaka liczba powinna być następna: 3, 6, 12, 24, ...?", options: ["36", "48", "30", "42"], correct: 1 },
+      { question: "Jaka liczba powinna być następna: 10, 9, 7, 4, ...?", options: ["1", "0", "2", "3"], correct: 1 },
+      { question: "Ile to jest 20% z 150?", options: ["20", "30", "25", "35"], correct: 1 },
+      { question: "Ile to jest 9 × 12?", options: ["98", "108", "118", "96"], correct: 1 },
+      { question: "Ile to jest 45 + 37?", options: ["82", "72", "83", "81"], correct: 0 },
+      { question: "Ile to jest 64 ÷ 8?", options: ["6", "8", "7", "9"], correct: 1 },
+      { question: "Ile to jest 2⁵?", options: ["10", "32", "16", "64"], correct: 1 },
+    
+      // === Domknięcie do 100 ===
+      { question: "Co ma uszy, ale nie słyszy?", options: ["Kukurydza", "Garnek", "Igła", "Wszystkie powyższe"], correct: 0 },
+      { question: "Co jest zawsze spóźnione?", options: ["Zegar", "Pociąg", "Przyszłość", "Czas"], correct: 2 },
+      { question: "Ile sekund ma godzina?", options: ["3600", "60", "600", "360"], correct: 0 },
+      { question: "Ile dni ma tydzień?", options: ["5", "6", "7", "8"], correct: 2 },
+      { question: "Jaki jest wynik: 10 + 10 × 0?", options: ["0", "10", "20", "100"], correct: 1 },
+      { question: "Co jest lżejsze od piórka, a jednak nie da się tego utrzymać dłużej niż chwilę?", options: ["Oddech", "Myśl", "Płomień", "Wszystkie powyższe"], correct: 0 },
+      { question: "Ile to jest 1 × 2 × 3 × 4 × 5?", options: ["120", "60", "100", "150"], correct: 0 },
+      { question: "Jaka jest połowa połowy z 16?", options: ["2", "4", "8", "1"], correct: 1 },
+      { question: "Co ma szyję, ale nie ma głowy?", options: ["Butelka", "Koszula", "Gitara", "Wszystkie powyższe"], correct: 0 },
+      { question: "Ile liter ma słowo „sto liter”?", options: ["3", "8", "9", "10"], correct: 1 }
     ];
     function shuffle(array) {
       const arr = [...array];
