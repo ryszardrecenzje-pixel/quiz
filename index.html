@@ -155,7 +155,7 @@
 <body>
   <div class="container">
     <h1>Test IQ</h1>
-    <p class="subtitle">10 podchwytliwych pytań • losowane z większej bazy</p>
+    <p class="subtitle">20 podchwytliwych pytań • losowane z 100</p>
 
     <form id="quizForm">
       <label for="name">Twoje imię</label>
@@ -307,7 +307,7 @@
 
     function renderQuestions() {
       // Losujemy 10 pytań z większej bazy
-      const selected = shuffle(questionsBank).slice(0, 10);
+      const selected = shuffle(questionsBank).slice(0, 20);
 
       currentQuestions = selected.map(q => {
         const indices = shuffle([0, 1, 2, 3]);
